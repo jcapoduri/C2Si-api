@@ -15,14 +15,16 @@ require_once 'libs/RedBean/rb.phar';
 require_once 'libs/Auth/Auth.php';
 require_once 'libs/Auth/AuthMiddleware.php';
 
-require_once 'libs/Respect/Validation/Validator.php';
-
-use Respect\Validation\Validator as v;
-
+require_once 'models/response.php';
 
 // SLIM setting up
 \Slim\Slim::registerAutoloader();
-$app = new \Slim\Slim();
+$app = new \Slim\Slim(array(
+    'cookies.encrypt' => true,
+    'cookies.secret_key' => 'my_secret_key',
+    'cookies.cipher' => MCRYPT_RIJNDAEL_256,
+    'cookies.cipher_mode' => MCRYPT_MODE_CBC
+));
 
 error_reporting(E_ALL);
 
